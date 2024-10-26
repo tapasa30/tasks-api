@@ -12,8 +12,16 @@ class AppFixtures extends Fixture
 {
     public function load(ObjectManager $manager): void
     {
+        $taskStatusRepository = $manager->getRepository(TaskStatus::class);
+
         foreach (TaskStatus::STATUS_CODES as $statusCode) {
             $taskStatus = new TaskStatus();
+
+            $existingTaskStatus = $taskStatusRepository->findOneBy(['code' => $statusCode]);
+
+            if ($existingTaskStatus !== null) {
+                continue;
+            }
 
             $taskStatus->setCode($statusCode);
 
