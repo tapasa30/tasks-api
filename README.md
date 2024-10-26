@@ -22,7 +22,7 @@ make build               # Construye la imagen Docker y prepara el entorno
 make up                  # Inicia el contenedor
 ```
 
-Crea la base de datos:
+Crea la base de datos (en caso de ser necesario):
 
 ```bash
 make create_db
