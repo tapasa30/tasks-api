@@ -17,5 +17,6 @@ create_db:
 
 deploy:
 	@$(DOCKER_COMPOSE) exec --user=$(shell id -u) php composer install
-	@$(DOCKER_COMPOSE) exec --user=$(shell id -u) php php bin/console doctrine:migrations:migrate
+	@$(DOCKER_COMPOSE) exec --user=$(shell id -u) php php bin/console doctrine:migrations:migrate --no-interaction
+	@$(DOCKER_COMPOSE) exec --user=$(shell id -u) php php bin/console doctrine:fixtures:load --append
 	@$(DOCKER_COMPOSE) exec --user=$(shell id -u) php php bin/console cache:clear
