@@ -31,7 +31,7 @@ make create_db
 Importa una copia de seguridad en la base de datos:
 
 ```bash
-docker-compose -p tasks_api -f docker-compose.yml exec mysql mysql -u{user_name} -p{user_password} {db_name} > {backup_filename}.sql
+docker-compose -p tasks_api -f docker-compose.yml exec mysql mysql -u{user_name} -p{user_password} {db_name} < {backup_filename}.sql
 ```
 
 Desplegar:
