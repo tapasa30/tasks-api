@@ -1,0 +1,42 @@
+version: '3.4'
+
+services:
+  php:
+    build:
+      context: .docker/php
+    volumes:
+      - ./:/var/www/html:delegated
+      - /etc/group:/etc/group:ro
+      - /etc/passwd:/etc/passwd:ro
+      - /etc/shadow:/etc/shadow:ro
+      - /home/${USER}:/home/${USER}:delegated
+    depends_on:
+      - mysql
+    links:
+      - mysql
+
+  nginx:
+    build:
+      context: .docker/nginx
+    ports:
+      - "8181:80"
+    volumes:
+      - ./:/var/www/html:ro
+    depends_on:
+      - php
+    links:
+      - php
+
+  mysql:
+    image: mysql:8.0
+    env_file:
+      - .env
+    environment:
+      TZ: Europe/Madrid
+    ports:
+      - "3360:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+volumes:
+  mysql_data: {}
